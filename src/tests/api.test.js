@@ -14,17 +14,24 @@ let agentUserId;
 let propertyId;
 
 describe('Property Listing API', () => {
-  before(async () => {
+  before(async function () {
+    this.timeout(10000);
     // Connect to database
     try {
       await connectDB();
     } catch (error) {
-      console.log('Database already connected or connection failed');
+      console.log('Note: MongoDB connection failed - tests require MongoDB Atlas connection');
+      console.log('Make sure MONGODB_URI is set in .env file');
+      this.skip();
     }
 
     // Clear collections
-    await User.deleteMany({});
-    await Property.deleteMany({});
+    try {
+      await User.deleteMany({});
+      await Property.deleteMany({});
+    } catch (error) {
+      console.log('Failed to clear collections');
+    }
   });
 
   describe('Auth Routes', () => {
