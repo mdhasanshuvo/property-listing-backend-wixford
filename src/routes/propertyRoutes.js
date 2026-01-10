@@ -7,6 +7,7 @@ const {
   updateProperty,
   deleteProperty
 } = require('../controllers/propertyController');
+const { adminDeleteProperty } = require('../controllers/adminController');
 
 const router = express.Router();
 
@@ -175,5 +176,31 @@ router.put('/:id', authenticate, authorize(['agent']), updateProperty);
  *         description: Property not found
  */
 router.delete('/:id', authenticate, authorize(['agent']), deleteProperty);
+
+/**
+ * @swagger
+ * /api/properties/admin/{id}:
+ *   delete:
+ *     summary: Delete any property (admins only)
+ *     tags: [Admin]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Property deleted successfully by admin
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden - admin only
+ *       404:
+ *         description: Property not found
+ */
+router.delete('/admin/:id', authenticate, authorize(['admin']), adminDeleteProperty);
 
 module.exports = router;
