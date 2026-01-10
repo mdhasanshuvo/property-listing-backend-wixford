@@ -164,10 +164,34 @@ const deleteProperty = async (req, res, next) => {
   }
 };
 
+const deletePropertyAsAdmin = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const property = await Property.findOne({ _id: id, isDeleted: false });
+
+    if (!property) {
+      const error = new Error('Property not found');
+      error.status = 404;
+      return next(error);
+    }
+
+    property.isDeleted = true;
+    await property.save();
+
+    res.json({
+      message: 'Property deleted successfully'
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createProperty,
   getProperties,
   getProperty,
   updateProperty,
-  deleteProperty
+  deleteProperty,
+  deletePropertyAsAdmin
 };
