@@ -36,7 +36,7 @@ npm install
 Create a `.env` file in the root directory. Use `.env.example` as a template:
 
 ```
-PORT=3000
+PORT=5000
 MONGODB_URI=mongodb+srv://property-listing-backend:<password>@cluster0.0nnvi.mongodb.net/property-listing
 JWT_SECRET=your_secret_key_here
 NODE_ENV=development
@@ -56,7 +56,7 @@ Production mode:
 npm start
 ```
 
-The server runs on `http://localhost:3000`
+The server runs on `http://localhost:5000`
 
 ### 4. Run Tests
 
@@ -140,7 +140,7 @@ Tokens expire in 24 hours.
 View interactive API documentation:
 
 ```
-http://localhost:3000/api-docs
+http://localhost:5000/api-docs
 ```
 
 ## Project Structure
