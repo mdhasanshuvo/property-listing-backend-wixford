@@ -17,6 +17,8 @@ const router = express.Router();
  *   get:
  *     summary: Get all properties with pagination and filters
  *     tags: [Properties]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: query
  *         name: page
@@ -48,8 +50,10 @@ const router = express.Router();
  *     responses:
  *       200:
  *         description: List of properties
+ *       401:
+ *         description: Unauthorized
  */
-router.get('/', getProperties);
+router.get('/', authenticate, getProperties);
 
 /**
  * @swagger
@@ -57,6 +61,8 @@ router.get('/', getProperties);
  *   get:
  *     summary: Get a single property by ID
  *     tags: [Properties]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -66,10 +72,12 @@ router.get('/', getProperties);
  *     responses:
  *       200:
  *         description: Property details
+ *       401:
+ *         description: Unauthorized
  *       404:
  *         description: Property not found
  */
-router.get('/:id', getProperty);
+router.get('/:id', authenticate, getProperty);
 
 /**
  * @swagger
