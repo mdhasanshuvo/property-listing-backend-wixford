@@ -36,6 +36,11 @@ const getProperties = async (req, res, next) => {
 
     const query = { isDeleted: false };
 
+    // Agents can only see their own properties, admins can see all
+    if (req.user.role === 'agent') {
+      query.createdBy = req.user.id;
+    }
+
     if (status) {
       query.status = status;
     }
@@ -80,7 +85,14 @@ const getProperty = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const property = await Property.findOne({ _id: id, isDeleted: false }).populate(
+    const query = { _id: id, isDeleted: false };
+
+    // Agents can only view their own properties, admins can view all
+    if (req.user.role === 'agent') {
+      query.createdBy = req.user.id;
+    }
+
+    const property = await Property.findOne(query).populate(
       'createdBy',
       'name email role'
     );
