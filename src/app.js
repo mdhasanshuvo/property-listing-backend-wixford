@@ -23,6 +23,10 @@ const swaggerOptions = {
       {
         url: 'http://localhost:5000',
         description: 'Development server'
+      },
+      {
+        url: 'https://property-listing-backend-wixford.vercel.app',
+        description: 'Production server'
       }
     ],
     components: {
