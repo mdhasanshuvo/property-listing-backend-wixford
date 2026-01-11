@@ -84,9 +84,40 @@ app.get('/api-docs', (req, res) => {
   res.type('text/html').send(html);
 });
 
-// Swagger JSON spec
+// Swagger JSON spec - dynamically reorder servers based on request
 app.get('/swagger.json', (req, res) => {
-  res.type('application/json').send(swaggerSpec);
+  const spec = JSON.parse(JSON.stringify(swaggerSpec)); // Deep copy
+  
+  // Determine if request is from localhost or production
+  const isLocalhost = req.get('host').includes('localhost');
+  
+  if (isLocalhost) {
+    // Put localhost server first for local development
+    spec.servers = [
+      {
+        url: 'http://localhost:5000',
+        description: 'Development server'
+      },
+      {
+        url: 'https://property-listing-backend-wixford.vercel.app',
+        description: 'Production server'
+      }
+    ];
+  } else {
+    // Put production server first for production
+    spec.servers = [
+      {
+        url: 'https://property-listing-backend-wixford.vercel.app',
+        description: 'Production server'
+      },
+      {
+        url: 'http://localhost:5000',
+        description: 'Development server'
+      }
+    ];
+  }
+  
+  res.type('application/json').send(spec);
 });
 
 // Routes
