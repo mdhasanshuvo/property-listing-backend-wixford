@@ -175,10 +175,11 @@ describe('Property Listing API', () => {
         });
     });
 
-    it('should get all properties without auth', (done) => {
+    it('admin should get all properties', (done) => {
       chai
         .request(app)
         .get('/api/properties')
+        .set('Authorization', `Bearer ${adminToken}`)
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body).to.have.property('properties');
@@ -191,6 +192,7 @@ describe('Property Listing API', () => {
       chai
         .request(app)
         .get('/api/properties?status=available')
+        .set('Authorization', `Bearer ${adminToken}`)
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body).to.have.property('properties');
@@ -202,6 +204,7 @@ describe('Property Listing API', () => {
       chai
         .request(app)
         .get('/api/properties?search=Beautiful')
+        .set('Authorization', `Bearer ${adminToken}`)
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body).to.have.property('properties');
@@ -213,6 +216,7 @@ describe('Property Listing API', () => {
       chai
         .request(app)
         .get('/api/properties?page=1&limit=5')
+        .set('Authorization', `Bearer ${adminToken}`)
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body.pagination).to.have.property('page');
@@ -225,6 +229,7 @@ describe('Property Listing API', () => {
       chai
         .request(app)
         .get(`/api/properties/${propertyId}`)
+        .set('Authorization', `Bearer ${adminToken}`)
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body).to.have.property('property');
