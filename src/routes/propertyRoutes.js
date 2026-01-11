@@ -163,31 +163,7 @@ router.put('/:id', authenticate, authorize(['agent']), updateProperty);
 
 /**
  * @swagger
- * /api/properties/{id}:
- *   delete:
- *     summary: Delete a property (agents only - own properties)
- *     tags: [Properties]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Property deleted successfully
- *       403:
- *         description: Forbidden - can only delete own properties
- *       404:
- *         description: Property not found
- */
-router.delete('/:id', authenticate, authorize(['agent']), deleteProperty);
-
-/**
- * @swagger
- * /api/admin/properties/{id}:
+ * /api/properties/admin/{id}:
  *   delete:
  *     summary: Delete any property (admins only)
  *     tags: [Admin]
@@ -210,5 +186,29 @@ router.delete('/:id', authenticate, authorize(['agent']), deleteProperty);
  *         description: Property not found
  */
 router.delete('/admin/:id', authenticate, authorize(['admin']), deletePropertyAsAdmin);
+
+/**
+ * @swagger
+ * /api/properties/{id}:
+ *   delete:
+ *     summary: Delete a property (agents only - own properties)
+ *     tags: [Properties]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Property deleted successfully
+ *       403:
+ *         description: Forbidden - can only delete own properties
+ *       404:
+ *         description: Property not found
+ */
+router.delete('/:id', authenticate, authorize(['agent']), deleteProperty);
 
 module.exports = router;
