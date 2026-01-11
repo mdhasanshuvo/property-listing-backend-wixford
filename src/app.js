@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 const authRoutes = require('./routes/authRoutes');
@@ -7,6 +8,7 @@ const propertyRoutes = require('./routes/propertyRoutes');
 const app = express();
 
 // Middleware
+app.use(cors());
 app.use(express.json());
 app.use(express.static('node_modules/swagger-ui-dist'));
 
