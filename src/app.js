@@ -8,6 +8,7 @@ const app = express();
 
 // Middleware
 app.use(express.json());
+app.use(express.static('node_modules/swagger-ui-dist'));
 
 // Swagger setup
 const swaggerOptions = {
@@ -47,6 +48,11 @@ app.use('/api/properties', propertyRoutes);
 // Health check
 app.get('/health', (req, res) => {
   res.json({ status: 'OK' });
+});
+
+// Root redirect
+app.get('/', (req, res) => {
+  res.redirect('/api-docs');
 });
 
 // Global error handler
