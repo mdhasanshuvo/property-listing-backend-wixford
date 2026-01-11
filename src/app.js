@@ -59,6 +59,7 @@ app.get('/api-docs', (req, res) => {
       html { box-sizing: border-box; overflow: -moz-scrollbars-vertical; overflow-y: scroll; }
       *, *:before, *:after { box-sizing: inherit; }
       body { margin:0; padding:0; }
+      .swagger-ui .topbar { display: none; }
     </style>
   </head>
   <body>

@@ -2,12 +2,17 @@
 
 A simple REST API for managing property listings with agent and admin roles. Built with Node.js, Express, MongoDB, and JWT authentication.
 
+## Live Deployment
+
+🚀 **Production**: https://property-listing-backend-wixford.vercel.app
+- **API Docs**: https://property-listing-backend-wixford.vercel.app/api-docs
+- **Health Check**: https://property-listing-backend-wixford.vercel.app/health
+
 ## What It Does
 
 This is a property listing API where:
 - **Agents** can create, view, and manage their own properties
 - **Admins** can view all properties and delete any property
-- Anyone can view available properties without logging in
 - Properties support filtering, pagination, and search
 
 ## Tech Stack
@@ -56,13 +61,28 @@ Production mode:
 npm start
 ```
 
-The server runs on `http://localhost:5000`
+Local server runs on `http://localhost:5000`
 
 ### 4. Run Tests
 
 ```bash
 npm test
 ```
+
+## Deployment
+
+This project is deployed on **Vercel** and auto-deploys on every push to main branch.
+
+### Setting up Vercel Deployment
+
+1. Connect GitHub repository to Vercel
+2. Add environment variables in Vercel project settings:
+   - `MONGODB_URI` - MongoDB Atlas connection string
+   - `JWT_SECRET` - Secret key for JWT tokens
+   - `NODE_ENV` - Set to `production`
+3. Every push to `main` branch auto-deploys
+
+View deployment: https://property-listing-backend-wixford.vercel.app
 
 ## API Overview
 
